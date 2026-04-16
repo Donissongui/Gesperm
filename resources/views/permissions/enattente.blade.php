@@ -55,7 +55,7 @@
                             data-posseders='@json($possedersData)'>
                             <td class="p-3">{{ $index + 1 }}</td>
                             <td class="p-3">{{ $permission->type_permission }}</td>
-                            <td class="p-3">{{ optional($permission->posseders->first()->motif)->libelle_motif ?? '-' }}
+                            <td class="p-3">{{ $permission->posseders?->first()?->motif?->libelle_motif ?? '-' }}
                             </td>
                             <td class="p-3">{{ \Carbon\Carbon::parse($permission->created_at)->format('d/m/Y') }}</td>
                             <td class="p-3">{{ \Carbon\Carbon::parse($permission->created_at)->format('H:i') }}</td>
