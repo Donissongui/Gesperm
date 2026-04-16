@@ -7,7 +7,7 @@
 
     <title>GesPerm | @yield('title', 'Bienvenue')</title>
 
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
     {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.min.css') }}"> --}}

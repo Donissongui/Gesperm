@@ -9,7 +9,7 @@
 
     <title>GesPerm | @yield('title', 'Gestion Permission')</title>
 
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.min.css') }}"> --}}
 
