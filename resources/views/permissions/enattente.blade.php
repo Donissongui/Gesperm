@@ -99,6 +99,8 @@
                                 </td>
                             @endif
                             <td class="p-3">
+                                {{ auth()->user()->personnel->id_service }}
+                                {{ $avis->permission->posseders->first()->date_fin }}
                                 <span
                                     class="px-3 py-1 rounded-xl text-xs {{ $avis->avis && $avis->avis != 'en attente' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
                                     {{ $avis->avis ?? 'En attente' }}

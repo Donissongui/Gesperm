@@ -22,7 +22,7 @@ class AvisPermissionController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-    return view('avis.index', compact('avis'));
+        return view('avis.index', compact('avis'));
     }
 
     /**

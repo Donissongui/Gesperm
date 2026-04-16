@@ -9,15 +9,19 @@
 
     <title>GesPerm | @yield('title', 'Gestion Permission')</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.min.css') }}"> --}}
 
     <!-- Favicon PNG 32x32 -->
     <link rel="shortcut icon" href="{{ asset('images/CIT.ico') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('icones/icone.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}"> --}}
 
-
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body x-data="{ open: false, notif: false, profile: false, logoutModal: false }" class="bg-[#F4F6FB] font-sans overflow-x-hidden">
@@ -413,6 +417,8 @@ transform transition duration-300 overflow-y-auto md:translate-x-0"
         </div>
 
     </div>
+    <script src="{{ asset('js/alpine.min.js') }}" defer></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     {{-- <script type="module" src="{{ asset('build/assets/app.js') }}"></script> --}}
 </body>
 

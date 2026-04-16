@@ -42,7 +42,7 @@
 
         <!-- ================= SEARCH ================= -->
         <div class="mb-4">
-            <input type="text" id="searchHistorique" placeholder="Rechercher matricule, nom, type, destination..."
+            <input type="text" id="searchHistorique" placeholder="Rechercher matricule, nom..."
                 class="w-full border rounded-lg p-2 text-sm focus:ring-[#4B0082] focus:border-[#4B0082]">
         </div>
 
@@ -60,8 +60,10 @@
                         <th class="p-3 text-left">Type</th>
                         <th class="p-3 text-left">Date début</th>
                         <th class="p-3 text-left">Date fin</th>
+                        <th class="p-3 text-left">Date arrivée</th>
+                        <th class="p-3 text-left">heure arrivée</th>
                         <th class="p-3 text-left">Destination</th>
-                        <th class="p-3 text-left">Avis</th>
+                        {{-- <th class="p-3 text-left">Avis</th> --}}
                         <th class="p-3 text-left">Etat</th>
 
                     </tr>
@@ -105,12 +107,20 @@
                             </td>
 
                             <td class="p-3">
-                                {{ $p->ville->nom_ville }}
+                                {{ $p->updated_at }}
                             </td>
 
                             <td class="p-3">
-                                {{ $p->avis }}
+                                {{ $p->updated_at }}
                             </td>
+
+                            <td class="p-3">
+                                {{ $p->ville->nom_ville }}
+                            </td>
+                            {{-- 
+                            <td class="p-3">
+                                {{ $p->avis }}
+                            </td> --}}
 
                             <td class="p-3 font-medium">
                                 <span

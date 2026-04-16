@@ -319,12 +319,14 @@ class PermissionController extends Controller
 
         // Détermine l'ordre attendu pour l'utilisateur
         $ordre = match ($user->type) {
-            'CSTAGE' => 1,
+            // 'CSTAGE', 'CGCS', 'GMI' => 1,
+            'CSTAGE'=> 1,
             'DFORMATION' => 2,
             'CGS' => 3,
             'CCIT' => 4,
             default => null,
         };
+
 
         if ($ordre) {
             // On récupère les avisPermissions correspondant à cet ordre et en attente

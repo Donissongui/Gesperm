@@ -134,7 +134,7 @@
         </a>
 
         <!-- Statistiques -->
-        <a href=""
+        {{-- <a href=""
             class="bg-white rounded-2xl shadow-sm border p-6
         hover:shadow-lg hover:-translate-y-1 transition duration-300 group">
 
@@ -158,7 +158,7 @@
                 </p>
 
             </div>
-        </a>
+        </a> --}}
 
     </div>
 
