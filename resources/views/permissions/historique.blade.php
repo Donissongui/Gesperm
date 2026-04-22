@@ -55,16 +55,16 @@
                 <thead class="bg-gray-100 text-gray-700">
                     <tr>
 
-                        <th class="p-3 text-left">Matricule</th>
-                        <th class="p-3 text-left">Nom & Prénom</th>
-                        <th class="p-3 text-left">Type</th>
-                        <th class="p-3 text-left">Date début</th>
-                        <th class="p-3 text-left">Date fin</th>
-                        <th class="p-3 text-left">Date arrivée</th>
-                        <th class="p-3 text-left">heure arrivée</th>
-                        <th class="p-3 text-left">Destination</th>
-                        {{-- <th class="p-3 text-left">Avis</th> --}}
-                        <th class="p-3 text-left">Etat</th>
+                        <th class="p-3 text-center">Matricule</th>
+                        <th class="p-3 text-center">Nom & Prénom</th>
+                        {{-- <th class="p-3 text-center">Type</th> --}}
+                        <th class="p-3 text-center">Date début</th>
+                        <th class="p-3 text-center">Date fin</th>
+                        <th class="p-3 text-center">Date arrivée</th>
+                        <th class="p-3 text-center">heure arrivée</th>
+                        <th class="p-3 text-center">Destination</th>
+                        {{-- <th class="p-3 text-center">Avis</th> --}}
+                        <th class="p-3 text-center">Etat</th>
 
                     </tr>
                 </thead>
@@ -85,7 +85,7 @@
                                     ($p->destination ?? ''),
                             ) }}">
 
-                            <td class="p-3">
+                            <td class="p-3 text-center">
                                 {{ $p->personnel->matricule ?? '' }}
                             </td>
 
@@ -94,27 +94,27 @@
                                 {{ $p->personnel->prenom ?? '' }}
                             </td>
 
-                            <td class="p-3">
+                            {{-- <td class="p-3">
                                 {{ $p->permission->type_permission ?? '' }}
+                            </td> --}}
+
+                            <td class="p-3 text-center">
+                                {{ \Carbon\Carbon::parse($p->date_début)->format('d/m/Y') }}
                             </td>
 
-                            <td class="p-3">
-                                {{ $p->date_début }}
+                            <td class="p-3 text-center">
+                                {{ \Carbon\Carbon::parse($p->date_fin)->format('d/m/Y') }}
                             </td>
 
-                            <td class="p-3">
-                                {{ $p->date_fin }}
+                            <td class="p-3 text-center">
+                                {{ $p->updated_at->format('d/m/Y') }}
                             </td>
 
-                            <td class="p-3">
-                                {{ $p->updated_at }}
+                            <td class="p-3 text-center">
+                                {{ $p->updated_at->format('H:i') }}
                             </td>
 
-                            <td class="p-3">
-                                {{ $p->updated_at }}
-                            </td>
-
-                            <td class="p-3">
+                            <td class="p-3 text-center">
                                 {{ $p->ville->nom_ville }}
                             </td>
                             {{-- 
@@ -122,7 +122,7 @@
                                 {{ $p->avis }}
                             </td> --}}
 
-                            <td class="p-3 font-medium">
+                            <td class="p-3 text-center font-medium">
                                 <span
                                     class="px-3 py-1 rounded-xl text-xs
     {{ $p->statut === 'en cours' ? 'bg-blue-100 text-blue-800' : '' }}

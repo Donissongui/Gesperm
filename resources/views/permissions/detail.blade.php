@@ -162,20 +162,35 @@
                                         $dernierAvis = $posseder->permission->avisPermissions->last();
                                     @endphp
 
-                                    @if (
-                                        $dernierAvis &&
-                                            $dernierAvis->personnel &&
-                                            $dernierAvis->personnel->fonction->nom_fonction == 'COMMANDANT CIT' &&
-                                            $dernierAvis->avis == 'favorable')
+                                    @if (auth()->user()?->type == 'admin')
+                                        {{-- ADMIN : toujours accès --}}
                                         <button onclick="printRow(this)"
                                             class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700">
-
                                             <i class="fas fa-print"></i>
-
                                         </button>
+                                    @elseif (auth()->user()?->personnel?->service === 'Groupement Stagiaire')
+                                        {{-- UTILISATEUR GS : condition stricte --}}
+                                        @if (
+                                            $dernierAvis &&
+                                                $dernierAvis->personnel &&
+                                                $dernierAvis->personnel->fonction->nom_fonction == 'COMMANDANT CIT' &&
+                                                $dernierAvis->avis == 'favorable')
+                                            <button onclick="printRow(this)"
+                                                class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        @else
+                                            Non disponible
+                                        @endif
                                     @else
-                                        Non disponible
+                                        {{-- AUTRES UTILISATEURS : accès libre --}}
+                                        <button onclick="printRow(this)"
+                                            class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700">
+                                            <i class="fas fa-print"></i>
+                                        </button>
                                     @endif
+
+
                                 </td>
 
                             </tr>

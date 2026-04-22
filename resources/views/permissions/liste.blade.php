@@ -132,7 +132,9 @@
                             <th class="p-3 text-left">Fin</th>
                             <th class="p-3 text-left">Cree le</th>
                             <th class="p-3 text-left">Heure</th>
-                            <th class="p-3 text-left">Avis</th>
+                            @if (auth()->user()?->personnel?->service === 'Groupement Stagiaire' || auth()->user()?->type == 'admin')
+                                <th class="p-3 text-left">Avis</th>
+                            @endif
                             <th class="p-3 text-left">Action</th>
                         </tr>
 
@@ -172,34 +174,37 @@
                                 <td class="p-3">
                                     {{ \Carbon\Carbon::parse($p->updated_at)->format('H:i') }}
                                 </td>
+                                @if (auth()->user()?->personnel?->service === 'Groupement Stagiaire' || auth()->user()?->type == 'admin')
+                                    <td class="p-3">
 
-                                <td class="p-3">
-                                    @php
-                                        $avis = optional($posseder->permission->avisPermissions->last())->avis;
-                                    @endphp
+                                        @php
+                                            $avis = optional($posseder->permission->avisPermissions->last())->avis;
+                                        @endphp
 
-                                    @if ($avis == 'en attente')
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            En attente
-                                        </span>
-                                    @elseif($avis == 'favorable')
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                            Favorable
-                                        </span>
-                                    @elseif($avis == 'défavorable')
-                                        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                                            Défavorable
-                                        </span>
-                                    @else
-                                        <span
-                                            class="px-3 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-600">
-                                            -
-                                        </span>
-                                    @endif
-                                </td>
+                                        @if ($avis == 'en attente')
+                                            <span
+                                                class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                                En attente
+                                            </span>
+                                        @elseif($avis == 'favorable')
+                                            <span
+                                                class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                                Favorable
+                                            </span>
+                                        @elseif($avis == 'défavorable')
+                                            <span
+                                                class="px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                                Défavorable
+                                            </span>
+                                        @else
+                                            <span
+                                                class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                                Favorable
+                                            </span>
+                                        @endif
 
+                                    </td>
+                                @endif
                                 <td class="p-3">
 
                                     <div class="flex flex-wrap gap-2">
@@ -214,7 +219,7 @@
                                             $premierAvis = $p->avisPermissions->sortBy('ordre')->first();
                                         @endphp
 
-                                        @if ($premierAvis?->avis == 'en attente')
+                                        @if ($premierAvis?->avis == 'en attente' && auth()->user()?->personnel?->service === 'Groupement Stagiaire')
                                             <a href="{{ route('permissions.edit', $p->id_permission) }}"
                                                 class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
                                                 <i class="fas fa-edit"></i>

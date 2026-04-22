@@ -178,6 +178,12 @@ class PermissionController extends Controller
                 }
 
                 // Création du Posseder
+                $user = auth()->user();
+
+                $statut = ($user && $user->personnel && $user->personnel->service === 'Groupement Stagiaire')
+                    ? 'en attente'
+                    : 'favorable';
+
                 Posseder::create([
                     'id_personnel'  => $personnel_id,
                     'id_permission' => $permission->id_permission,
@@ -185,18 +191,25 @@ class PermissionController extends Controller
                     'date_fin'      => $date_fin,
                     'id_motif'      => $motif,
                     'id_ville'      => $ville,
-                    'statut'        => 'en attente',
+                    'statut'        => $statut,
                     'arrive'        => 0,
                 ]);
             }
 
             // 3️⃣ Création du premier avis global pour cette permission
-            AvisPermission::create([
-                'id_permission' => $permission->id_permission,
-                'avis'          => 'en attente', // ou valeur par défaut
-                'id_personnel'  => null,        // avis global, pas lié à un personnel
-                'ordre'         => 1,
-            ]);
+            $user = auth()->user();
+
+            $isGS = $user && $user->personnel && $user->personnel->service === 'Groupement Stagiaire';
+
+            if ($isGS) {
+
+                AvisPermission::create([
+                    'id_permission' => $permission->id_permission,
+                    'avis'          => 'en attente',
+                    'id_personnel'  => null,
+                    'ordre'         => 1,
+                ]);
+            }
 
             DB::commit();
 
@@ -320,7 +333,7 @@ class PermissionController extends Controller
         // Détermine l'ordre attendu pour l'utilisateur
         $ordre = match ($user->type) {
             // 'CSTAGE', 'CGCS', 'GMI' => 1,
-            'CSTAGE'=> 1,
+            'CSTAGE' => 1,
             'DFORMATION' => 2,
             'CGS' => 3,
             'CCIT' => 4,
