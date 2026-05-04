@@ -73,7 +73,7 @@ class StagiaireController extends Controller
     public function create()
     {
         $grades = Grade::whereHas('categories', function ($q) {
-            $q->where('n_order', 3);
+            $q->where('nom_categorie', 'Sous-Officier');
         })->get();
         $brigades = Brigade::all();
 

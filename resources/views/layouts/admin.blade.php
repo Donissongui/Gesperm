@@ -61,7 +61,7 @@
             <!-- RIGHT -->
             <div class="flex items-center gap-4">
 
-                @if (auth()->user()->type == 'admin')
+                @if (in_array(auth()->user()->type, ['admin', 'SGCS', 'SGS', 'SGMI']))
                     <!-- NOTIFICATION -->
 
                     <div x-data="{ notif: false }" class="relative">
@@ -81,7 +81,12 @@
 
                         <!-- Dropdown notifications -->
                         <div x-show="notif" x-cloak @click.away="notif=false" x-transition
-                            class="absolute right-0 mt-3 w-80 sm:w-96 bg-white text-black rounded-xl shadow-xl border overflow-hidden z-50">
+                            class="fixed sm:absolute top-16 sm:top-auto
+           left-1/2 sm:left-auto sm:right-0
+           -translate-x-1/2 sm:translate-x-0
+           w-[95vw] sm:w-80 md:w-96
+           max-h-[70vh]
+           bg-white text-black rounded-xl shadow-xl border overflow-hidden z-50">
 
                             <div class="px-4 py-3 border-b bg-gray-50 flex justify-between">
                                 <span class="text-sm font-semibold text-[#4B0082]">Notifications</span>
@@ -103,7 +108,7 @@
                                                 {{ \Carbon\Carbon::parse($perm->date_fin)->format('d/m/Y') }}
                                             </p>
                                             <span class="text-xs text-gray-400">
-                                                {{ \Carbon\Carbon::parse($perm->date_fin)->diffForHumans() }}
+                                                {{ \Carbon\Carbon::parse($perm->date_fin)->locale('fr')->diffForHumans() }}
                                             </span>
                                         </div>
                                     </a>
@@ -134,7 +139,18 @@ flex items-center justify-center text-white text-sm font-bold">
                             {{ strtoupper(substr(auth()->user()->login ?? '', 0, 1)) }}
                         </div>
 
-                        <span class="hidden md:block text-sm">{{ auth()->user()->login ?? '' }}</span>
+                        <div class="hidden md:flex flex-col text-left">
+                            <span class="text-sm font-medium">
+                                {{ auth()->user()->login ?? '' }}
+                            </span>
+                            <span class="text-xs text-gray-300">
+
+                                {{ optional(auth()->user()->personnel->service)->nom_service
+                                    ? collect(explode(' ', auth()->user()->personnel->service->nom_service))->map(fn($word) => strtoupper(substr($word, 0, 1)))->implode('')
+                                    : '—' }}
+                                : {{ auth()->user()->personnel->fonction->nom_fonction }}
+                            </span>
+                        </div>
 
                         <i class="fas fa-chevron-down text-xs"></i>
 

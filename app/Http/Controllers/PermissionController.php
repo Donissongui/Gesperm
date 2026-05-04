@@ -182,7 +182,7 @@ class PermissionController extends Controller
 
                 $statut = ($user && $user->personnel && $user->personnel->service === 'Groupement Stagiaire')
                     ? 'en attente'
-                    : 'favorable';
+                    : 'en cours';
 
                 Posseder::create([
                     'id_personnel'  => $personnel_id,

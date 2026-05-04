@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Fonction;
 use App\Models\Grade;
 use App\Models\Personnel;
@@ -143,10 +144,20 @@ class PersonnelController extends Controller
      */
     public function create()
     {
-        $grades = Grade::whereHas('categories') // toutes les catégories liées
-            ->with(['categories' => function ($q) {
-                $q->orderBy('n_order', 'asc'); // tri par n_order
-            }])
+        // $grades = Grade::whereHas('categories')
+        //     ->with(['categories' => function ($q) {
+        //         $q->orderBy('n_order', 'asc'); 
+        //     }])
+        //     ->get();
+
+        $grades = Grade::with('categories')
+            ->orderBy(
+                Categorie::select('n_order')
+                    ->whereColumn('categories.id_grade', 'grades.id_grade')
+                    ->orderBy('n_order')
+                    ->limit(1),
+                'asc'
+            )
             ->get();
         $services = Service::all();
         $fonctions = Fonction::all();
