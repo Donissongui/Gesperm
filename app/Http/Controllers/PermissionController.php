@@ -34,7 +34,7 @@ class PermissionController extends Controller
 
         $query = Personnel::where('type_personnel', $type);
 
-        if (auth()->user()->type != 'admin') {
+        if (auth()->user()->type != 'admin' && $type == 'militaire') {
             $query->where('id_service', auth()->user()->personnel->id_service);
         }
 
