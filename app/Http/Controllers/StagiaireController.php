@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brigade;
+use App\Models\Categorie;
 use App\Models\Grade;
 use App\Models\Personnel;
 use Illuminate\Http\Request;
@@ -72,9 +73,19 @@ class StagiaireController extends Controller
      */
     public function create()
     {
-        $grades = Grade::whereHas('categories', function ($q) {
-            $q->where('nom_categorie', 'Sous-Officier');
-        })->get();
+        // $grades = Grade::whereHas('categories', function ($q) {
+        //     $q->where('nom_categorie', 'Sous-Officier');
+        // })->get();
+
+        $grades = Grade::with('categories')
+            ->orderBy(
+                Categorie::select('n_order')
+                    ->whereColumn('categories.id_grade', 'grades.id_grade')
+                    ->orderBy('n_order')
+                    ->limit(1),
+                'asc'
+            )
+            ->get();
         $brigades = Brigade::all();
 
         return view('stagiaires.create', compact('grades', 'brigades'));

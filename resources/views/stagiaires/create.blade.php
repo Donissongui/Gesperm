@@ -183,7 +183,7 @@
                     <div>
 
                         <label class="block text-sm font-medium mb-1">
-                            Brigade
+                            Stage
                         </label>
 
                         <select name="id_brigade"
