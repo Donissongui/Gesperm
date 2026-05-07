@@ -83,10 +83,10 @@
 
                 <thead class="bg-[#4B0082]/5 border-b">
                     <tr class="text-left text-gray-600">
-
+                        <th class="p-4 hidden sm:table-cell">Grade</th>
                         <th class="p-4">Nom</th>
                         <th class="p-4">Prénom</th>
-                        <th class="p-4 hidden sm:table-cell">Grade</th>
+                        <th class="p-4 hidden sm:table-cell">Matricule</th>
                         <th class="p-4 hidden md:table-cell">Brigade</th>
                         <th class="p-4 text-center">Action</th>
 
@@ -97,7 +97,9 @@
 
                     @forelse($personnels as $personnel)
                         <tr class="hover:bg-gray-50 transition">
-
+                            <td class="p-4 hidden sm:table-cell text-gray-600">
+                                {{ $personnel->grade->libelle_grade ?? '-' }}
+                            </td>
                             <td class="p-4 font-medium">
                                 {{ $personnel->nom }}
                             </td>
@@ -107,7 +109,7 @@
                             </td>
 
                             <td class="p-4 hidden sm:table-cell text-gray-600">
-                                {{ $personnel->grade->libelle_grade ?? '-' }}
+                                {{ $personnel->matricule ?? '-' }}
                             </td>
 
                             <td class="p-4 hidden md:table-cell text-gray-600">

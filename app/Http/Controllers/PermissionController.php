@@ -61,7 +61,9 @@ class PermissionController extends Controller
         $query = Permission::where('type_permission', $type)
             ->with('posseders.motif', 'posseders.personnel.service');
 
-        if (auth()->user()->type != 'admin') {
+        $user = auth()->user();
+
+        if (!in_array($user->type, ['admin', 'SGS'])) {
 
             $query->whereHas('posseders.personnel', function ($q) {
                 $q->where('id_service', auth()->user()->personnel->id_service);
@@ -180,7 +182,7 @@ class PermissionController extends Controller
                 // Création du Posseder
                 $user = auth()->user();
 
-                $statut = ($user && $user->personnel && $user->personnel->service === 'Groupement Stagiaire')
+                $statut = ($user && $user->type === 'SGS')
                     ? 'en attente'
                     : 'en cours';
 
@@ -199,7 +201,7 @@ class PermissionController extends Controller
             // 3️⃣ Création du premier avis global pour cette permission
             $user = auth()->user();
 
-            $isGS = $user && $user->personnel && $user->personnel->service === 'Groupement Stagiaire';
+            $isGS = $user && $user->type === 'SGS';
 
             if ($isGS) {
 
@@ -254,6 +256,8 @@ class PermissionController extends Controller
             'personnels' => 'required|array',
             'personnels.*.destination' => 'nullable|exists:villes,id_ville',
             'personnels.*.motif' => 'nullable|exists:motifs,id_motif',
+            'personnels.*.date_début' => 'nullable|date',
+            'personnels.*.date_fin' => 'nullable|date',
         ]);
 
         $permission = Permission::findOrFail($id);
@@ -268,6 +272,8 @@ class PermissionController extends Controller
                 $posseder->update([
                     'id_ville' => $data['destination'] ?? null,
                     'id_motif' => $data['motif'] ?? null,
+                    'date_début' => $data['date_début'] ?? null,
+                    'date_fin' => $data['date_fin'] ?? null,
                 ]);
             }
         }

@@ -132,7 +132,7 @@
                             <th class="p-3 text-left">Fin</th>
                             <th class="p-3 text-left">Cree le</th>
                             <th class="p-3 text-left">Heure</th>
-                            @if (auth()->user()?->personnel?->service === 'Groupement Stagiaire' || auth()->user()?->type == 'admin')
+                            @if (in_array(auth()->user()?->type, ['admin', 'SGS']))
                                 <th class="p-3 text-left">Avis</th>
                             @endif
                             <th class="p-3 text-left">Action</th>
@@ -174,7 +174,7 @@
                                 <td class="p-3">
                                     {{ \Carbon\Carbon::parse($p->updated_at)->format('H:i') }}
                                 </td>
-                                @if (auth()->user()?->personnel?->service === 'Groupement Stagiaire' || auth()->user()?->type == 'admin')
+                                @if (in_array(auth()->user()?->type, ['admin', 'SGS']))
                                     <td class="p-3">
 
                                         @php
@@ -219,7 +219,7 @@
                                             $premierAvis = $p->avisPermissions->sortBy('ordre')->first();
                                         @endphp
 
-                                        @if ($premierAvis?->avis == 'en attente' && auth()->user()?->personnel?->service === 'Groupement Stagiaire')
+                                        @if ($premierAvis?->avis == 'en attente' && auth()->user()?->type == 'SGS')
                                             <a href="{{ route('permissions.edit', $p->id_permission) }}"
                                                 class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
                                                 <i class="fas fa-edit"></i>

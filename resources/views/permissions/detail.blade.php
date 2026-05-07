@@ -168,7 +168,7 @@
                                             class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700">
                                             <i class="fas fa-print"></i>
                                         </button>
-                                    @elseif (auth()->user()?->personnel?->service === 'Groupement Stagiaire')
+                                    @elseif (auth()->user()?->type == 'SGS')
                                         {{-- UTILISATEUR GS : condition stricte --}}
                                         @if (
                                             $dernierAvis &&

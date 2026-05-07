@@ -87,7 +87,7 @@
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
 
                 <input type="text" name="search" value="{{ request('search') }}"
-                    placeholder="Nom, prénom, matricule ou service..."
+                    placeholder="Rechercher par nom, prénom ou matricule..."
                     class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2
                 focus:ring-2 focus:ring-[#4B0082]
                 focus:border-[#4B0082] outline-none transition">
@@ -109,11 +109,12 @@
                 <thead class="bg-[#4B0082]/5 border-b">
                     <tr class="text-left text-gray-600">
 
-                        <th class="p-4 hidden sm:table-cell">Grade</th>
-                        <th class="p-4">Nom</th>
-                        <th class="p-4">Prénom</th>
-                        <th class="p-4 hidden md:table-cell">Service</th>
-                        <th class="p-4 hidden md:table-cell">Fonction</th>
+                        <th class="p-4 text-center hidden sm:table-cell">Grade</th>
+                        <th class="p-4 text-center">Nom</th>
+                        <th class="p-4 text-center">Prénom</th>
+                        <th class="p-4 text-center hidden sm:table-cell">Matricule</th>
+                        <th class="p-4 text-center hidden md:table-cell">Service</th>
+                        <th class="p-4 text-center hidden md:table-cell">Fonction</th>
                         <th class="p-4 text-center">Action</th>
 
                     </tr>
@@ -136,14 +137,17 @@
                                 {{ $personnel->prenom }}
                             </td>
 
-                            <td class="p-4 hidden md:table-cell text-gray-600">
-                                {{ $personnel->service->nom_service ?? '-' }}
-
+                            <td class="p-4 text-center hidden sm:table-cell text-gray-600">
+                                {{ $personnel->matricule ?? '-' }}
                             </td>
 
-                            <td class="p-4 hidden md:table-cell text-gray-600">
-                                {{ $personnel->fonction->nom_fonction ?? '-' }}
+                            <td class="p-4 text-center hidden md:table-cell text-gray-600">
+                                {{ collect(explode(' ', $personnel->service->nom_service ?? ''))->map(fn($word) => strtoupper(substr($word, 0, 1)))->implode('') ?:
+                                    '-' }}
+                            </td>
 
+                            <td class="p-4 hidden md:table-cell text-gray-600 text-sm break-words">
+                                {{ $personnel->fonction->nom_fonction ?? '-' }}
                             </td>
 
                             <td class="p-4 text-center">

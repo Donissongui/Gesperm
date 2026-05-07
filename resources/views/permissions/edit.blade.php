@@ -56,7 +56,7 @@
                 @method('PUT')
 
                 <!-- Type & Tranche -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="hidden grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
                         <select name="type_permission" class="w-full border rounded-lg p-2">
@@ -102,11 +102,15 @@
                                     <td class="p-2 border">{{ $posseder->personnel->matricule }}</td>
 
                                     <td class="p-2 border">
-                                        {{ $posseder->permission->posseders->first()?->date_début ? \Carbon\Carbon::parse($posseder->permission->posseders->first()->date_début)->format('d/m/Y') : 'Non défini' }}
+                                        <input type="date" name="personnels[{{ $posseder->id_posseder }}][date_début]"
+                                            value="{{ $posseder->permission->posseders->first()?->date_début }}"
+                                            class="w-full border rounded px-2 py-1 text-sm">
                                     </td>
 
                                     <td class="p-2 border">
-                                        {{ $posseder->permission->posseders->first()?->date_fin ? \Carbon\Carbon::parse($posseder->permission->posseders->first()->date_fin)->format('d/m/Y') : 'Non défini' }}
+                                        <input type="date" name="personnels[{{ $posseder->id_posseder }}][date_fin]"
+                                            value="{{ $posseder->permission->posseders->first()?->date_fin }}"
+                                            class="w-full border rounded px-2 py-1 text-sm">
                                     </td>
                                     <td class="p-2 border">
                                         <select name="personnels[{{ $posseder->id_posseder }}][motif]"

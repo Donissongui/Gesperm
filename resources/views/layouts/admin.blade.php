@@ -39,7 +39,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <a href="#" class="flex items-center gap-3">
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
 
                     <div class="w-12 h-12 bg-white rounded-lg flex justify-center items-center shadow overflow-hidden">
                         <img src="{{ asset('images/CIT.png') }}" class="w-12 h-12 object-contain">
