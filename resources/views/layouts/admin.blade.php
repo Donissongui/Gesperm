@@ -11,6 +11,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Favicon PNG 32x32 -->
+    <link rel="shortcut icon" href="{{ asset('icones/CIT.ico') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.min.css') }}"> --}}
 
     <!-- Favicon PNG 32x32 -->

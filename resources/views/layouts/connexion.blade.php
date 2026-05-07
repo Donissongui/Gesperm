@@ -13,7 +13,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/tailwind.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Favicon PNG 32x32 -->
-    <link rel="shortcut icon" href="{{ asset('images/CIT.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('icones/CIT.ico') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('icones/icone.css') }}">
