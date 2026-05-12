@@ -63,7 +63,22 @@ class PermissionController extends Controller
 
         $user = auth()->user();
 
-        if (!in_array($user->type, ['admin', 'SGS'])) {
+        // if (!in_array($user->type, ['admin', 'SGS'])) {
+
+        //     $query->whereHas('posseders.personnel', function ($q) {
+        //         $q->where('id_service', auth()->user()->personnel->id_service);
+        //     });
+        // }
+
+        /*
+|--------------------------------------------------------------------------
+| Filtrer seulement pour les militaires
+|--------------------------------------------------------------------------
+*/
+        if (
+            $user->type != 'admin' &&
+            !($user->type == 'SGS' && $type == 'stagiaire')
+        ) {
 
             $query->whereHas('posseders.personnel', function ($q) {
                 $q->where('id_service', auth()->user()->personnel->id_service);
